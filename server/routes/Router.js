@@ -12,11 +12,20 @@ router.get('/city/:cityName', (req, res) => {
         uri: baseURL,
         qs: {
             q: cityName,
-            appid: API_KEY
-        }
+            appid: API_KEY,
+            units: 'metric'
+        },
+        json: true
     })
-        .then(data => { res.send(data) })
-        .catch(err => { res.send(JSON.parse(err.error)) })
+        .then(data => {
+            res.send({
+                    name: data.name,
+                    temperature: Math.floor(data.main.temp),
+                    condition: data.weather[0].main,
+                    conditionPic: data.weather[0].icon
+                })
+        })
+        .catch(err => { res.send(err) })
 })
 
 router.get('/cities', (req, res) => {
