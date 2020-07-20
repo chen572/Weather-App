@@ -3,7 +3,7 @@ class Model {
         this.cityData = []
     }
 
-    getDataFromDB() { return $.get('/cities') }
+    getDataFromDB() { return $.get('http://localhost:3000/cities') }
 
     async getCityData(cityName) {
         this.cityData.push(await $.get(`/city/${cityName}`))

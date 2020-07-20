@@ -1,14 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Weather</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+        integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    
-    <script src="jquery/dist/jquery.js"></script>
+
+    <div class="main-container">
+        <div class="top-container">
+            <div class="top-container-filter"></div>
+            <img class="top-container-img" src="./top.png">
+        </div>
+        <div class="search-container">
+            <input class="city-search" id="search-input" type="text">
+            <label class="search-label" for="search-input">City</label>
+            <i class="fas fa-search fa-2x fa-flip-horizontal search-btn"></i>
+        </div>
+        <div class="bottom-container"></div>
+    </div>
+
+    <script id="city-card-template" type="text/x-handlebars-template">
+        {{#each city}}
+        <div class="city-card">
+            <div class="city-name">
+                <h2>{{name}}</h2>
+                <span>{{condition}}</span>
+            </div>
+            <div class="temp-n-icn">
+                <h2 class="temp">{{temperature}}<span class="C">&#8451;</span></h2>
+                <img src="http://openweathermap.org/img/wn/{{conditionPic}}@2x.png">
+            </div>
+        </div>
+        {{/each}}
+    </script>
+
+    <script src="../node_modules/handlebars/dist/handlebars.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="./Classes/Renderer.js"></script>
     <script src="./Classes/Model.js"></script>
     <script src="main.js"></script>
 </body>
+
 </html>
