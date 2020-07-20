@@ -29,6 +29,11 @@
     <script id="city-card-template" type="text/x-handlebars-template">
         {{#each city}}
         <div class="city-card">
+            {{#if saved}}
+                <i class="fas fa-minus fa-2x remove"></i>
+            {{else}}
+                <i class="fas fa-plus fa-2x add"></i>
+            {{/if}}
             <div class="city-name">
                 <h2>{{name}}</h2>
                 <span>{{condition}}</span>

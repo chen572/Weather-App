@@ -40,7 +40,8 @@ router.post('/city', (req, res) => {
         name,
         temperature,
         condition,
-        conditionPic
+        conditionPic,
+        saved: true
     })
     c
         .save()

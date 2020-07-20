@@ -115,7 +115,6 @@
 
 .city-name {
     font-size: 30px;
-    margin-left: 10px;
 }
 
 .temp-n-icn {
@@ -134,4 +133,10 @@
 
 .C {
     font-size: 18px;
+}
+
+.remove,
+.add {
+    align-self: center;
+    margin-left: 10px;
 }
