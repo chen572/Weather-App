@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Sora&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
         integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
@@ -19,8 +20,8 @@
             <img class="top-container-img" src="./top.png">
         </div>
         <div class="search-container">
-            <input class="city-search" id="search-input" type="text">
-            <label class="search-label" for="search-input">City</label>
+            <input id="city-search" type="text">
+            <label class="search-label" for="city-search">City</label>
             <i class="fas fa-search fa-2x fa-flip-horizontal search-btn"></i>
         </div>
         <div class="bottom-container"></div>
@@ -34,12 +35,12 @@
             {{else}}
                 <i class="fas fa-plus fa-2x add"></i>
             {{/if}}
-            <div class="city-name">
+            <div id="city-name">
                 <h2>{{name}}</h2>
                 <span>{{condition}}</span>
             </div>
             <div class="temp-n-icn">
-                <h2 class="temp">{{temperature}}<span class="C">&#8451;</span></h2>
+                <h2 id="temp">{{temperature}}<span class="C">&#8451;</span></h2>
                 <img src="http://openweathermap.org/img/wn/{{conditionPic}}@2x.png">
             </div>
         </div>
@@ -48,15 +49,16 @@
 
     <script id="top-city-template" type="text/x-handlebars-template">
         <div class="city-card top-city">
-            <div class="city-name">
+            <div id="city-name">
                 <h2>{{name}}</h2>
                 <span>{{condition}}</span>
-                <h2 class="temp">{{temperature}}<span class="C">&#8451;</span></h2>
+                <h2 id="temp">{{temperature}}<span class="C">&#8451;</span></h2>
             </div>
                 <img src="http://openweathermap.org/img/wn/{{conditionPic}}@2x.png">
         </div>
     </script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="handlebars/dist/handlebars.js"></script>
     <script src="jquery/dist/jquery.js"></script>
     <script src="./Classes/Renderer.js"></script>

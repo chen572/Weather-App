@@ -12,6 +12,11 @@
     font-family: 'Sora', sans-serif;
 }
 
+h2 {
+    font-size: inherit;
+    margin: 0;
+}
+
 .main-container {
     width: 100vw;
     height: 100vh;
@@ -53,7 +58,7 @@
     height: 60px;
 }
 
-.city-search {
+#city-search {
     margin: 5px;
     width: 95%;
     height: 50px;
@@ -73,7 +78,7 @@
     font-size: 24px;
 }
 
-.city-search:focus ~ .search-label {
+#city-search:focus ~ .active {
     top: -0.01px;
 	left: 30px;
     font-size: 0.85em;
@@ -87,7 +92,7 @@
     text-decoration: underline #FCA311;
 }
 
-.city-search:focus {
+#city-search:focus {
     border-bottom: #FCA311 solid 1.5px;
     outline: none;
 }
@@ -137,10 +142,26 @@
     box-shadow: none;
 }
 
-.top-city > .city-name {
+.top-city > #city-name {
+    font-size: 30px;
+}
+
+#city-name {
     font-size: 24px;
+}
+
+#city-name > h2 {
+    font-weight: bolder;
 }
 
 .top-city > img {
     margin-top: 65px;
+}
+
+.ld {
+    position: absolute;
+}
+
+#temp {
+    font-size: 27px;
 }
