@@ -28,7 +28,9 @@
 
     <script id="city-card-template" type="text/x-handlebars-template">
         {{#each city}}
-        <div class="city-card">
+        <div class="city-card" 
+            data-id="{{_id}}"
+        >
             {{#if saved}}
                 <i class="fas fa-minus fa-2x remove"></i>
             {{else}}
@@ -46,8 +48,8 @@
         {{/each}}
     </script>
 
-    <script src="../node_modules/handlebars/dist/handlebars.js"></script>
-    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="handlebars/dist/handlebars.js"></script>
+    <script src="jquery/dist/jquery.js"></script>
     <script src="./Classes/Renderer.js"></script>
     <script src="./Classes/Model.js"></script>
     <script src="main.js"></script>

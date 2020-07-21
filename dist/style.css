@@ -109,12 +109,7 @@
     border-bottom-right-radius: 10px;
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
-    position: relative;
-}
-
-.city-name {
-    font-size: 30px;
+    align-items: center;
 }
 
 .temp-n-icn {
@@ -123,12 +118,6 @@
     display: flex;
     justify-content: space-evenly;
     font-size: 18px;
-}
-
-.temp {
-    position: absolute;
-    right: 80px;
-    bottom: 20px;
 }
 
 .C {

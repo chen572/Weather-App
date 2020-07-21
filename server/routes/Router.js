@@ -22,7 +22,8 @@ router.get('/city/:cityName', (req, res) => {
                     name: data.name,
                     temperature: Math.floor(data.main.temp),
                     condition: data.weather[0].main,
-                    conditionPic: data.weather[0].icon
+                    conditionPic: data.weather[0].icon,
+                    saved: false
                 })
         })
         .catch(err => { res.send(err) })
