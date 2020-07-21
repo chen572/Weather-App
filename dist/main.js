@@ -25,7 +25,6 @@ loadPage()
 const handleSearch = async (cityName) => {
     await model.getCityData(cityName)
     renderer.render({ city: model.cityData }, 'bottom')
-    renderer.render(model.cityData[0], 'top')
 }
 
 $('.search-btn').click(() => {
