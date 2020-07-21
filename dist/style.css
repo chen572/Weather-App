@@ -125,6 +125,12 @@ h2 {
     align-items: center;
 }
 
+.icons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
 .temp-n-icn {
     align-items: center;
     display: flex;
