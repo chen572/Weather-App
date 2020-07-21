@@ -7,7 +7,11 @@ class Model {
         return this.cityData.find(c => c.name.toLowerCase() === cityName.toLowerCase())
     }
 
-    async getDataFromDB() { 
+    findIndex(cityName) {
+        return this.cityData.findIndex(c => c.name.toLowerCase() === cityName.toLowerCase())
+    }
+
+    async getDataFromDB() {
         this.cityData = await $.get('/cities')
     }
 
@@ -33,5 +37,13 @@ class Model {
             method: 'DELETE',
             url: `/city/${city.name}`
         })
+    }
+
+    async updateCity(cityName) {
+        const updatedCity = await $.ajax({
+            method: 'PUT',
+            url: `/city/${cityName}`
+        })
+        this.cityData.splice(this.findIndex(cityName), 1, updatedCity)
     }
 }

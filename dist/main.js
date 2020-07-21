@@ -71,3 +71,8 @@ $('#slider').change(() => {
     localStorage.isDark = isDark
     darkMode()
 })
+
+$('.bottom-container').on('click', '#refresh' ,async event => {
+    await model.updateCity($(event.currentTarget).closest('.icons').siblings('#city-name').find('h2').text())
+    renderer.render({ city: model.cityData }, 'bottom')
+})

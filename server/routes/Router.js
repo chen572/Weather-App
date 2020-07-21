@@ -19,12 +19,12 @@ router.get('/city/:cityName', (req, res) => {
     })
         .then(data => {
             res.send({
-                    name: data.name,
-                    temperature: Math.floor(data.main.temp),
-                    condition: data.weather[0].main,
-                    conditionPic: data.weather[0].icon,
-                    saved: false
-                })
+                name: data.name,
+                temperature: Math.floor(data.main.temp),
+                condition: data.weather[0].main,
+                conditionPic: data.weather[0].icon,
+                saved: false
+            })
         })
         .catch(err => { res.end() })
 })
@@ -55,6 +55,31 @@ router.delete('/city/:cityName', (req, res) => {
     City
         .findOneAndDelete({ name: cityName })
         .exec((e, d) => { e ? res.send(e) : res.send({ city: d, msg: 'Deleted' }) })
+})
+
+router.put('/city/:cityName', async (req, res) => {
+    const { cityName } = req.params
+    let update =
+        await rq({
+            uri: baseURL,
+            qs: {
+                q: cityName,
+                appid: API_KEY,
+                units: 'metric'
+            },
+            json: true
+        })
+
+    update = {
+        name: update.name,
+        temperature: Math.floor(update.main.temp),
+        condition: update.weather[0].main,
+        conditionPic: update.weather[0].icon,
+        saved: true
+    }
+    City
+        .findOneAndUpdate({ name: cityName }, update)
+        .exec((e, d) => { res.send(d) })
 })
 
 module.exports = router
