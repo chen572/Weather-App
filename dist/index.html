@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Sora&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
         integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
@@ -15,7 +16,15 @@
 <body>
 
     <div class="main-container">
-        <div class="top-container">
+        <div id="top-container">
+            <div id="ld" class="switch">
+                <label>
+                    <i id="light" class="material-icons">wb_sunny</i>
+                    <input id="slider" type="checkbox">
+                    <span class="lever"></span>
+                    <i id="dark" class="fas fa-moon fa-lg"></i>
+                </label>
+            </div>
             <div class="top-container-filter"></div>
             <img class="top-container-img" src="./top.png">
         </div>

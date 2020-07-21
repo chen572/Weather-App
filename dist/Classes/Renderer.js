@@ -10,6 +10,6 @@ class Renderer {
         container === 'bottom' ?
             $(`.${container}-container`).empty().append(this.cityCard(data))
             :
-            $(`.${container}-container`).append(html)
+            $(`#${container}-container`).append(html)
     }
 }
