@@ -114,9 +114,7 @@
 
 .temp-n-icn {
     align-items: center;
-    justify-self: flex-end;
     display: flex;
-    justify-content: space-evenly;
     font-size: 18px;
 }
 
@@ -128,4 +126,21 @@
 .add {
     align-self: center;
     margin-left: 10px;
+}
+
+.top-city {
+    position: absolute;
+    top: 40px;
+    overflow: visible;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+}
+
+.top-city > .city-name {
+    font-size: 24px;
+}
+
+.top-city > img {
+    margin-top: 65px;
 }

@@ -26,7 +26,7 @@ router.get('/city/:cityName', (req, res) => {
                     saved: false
                 })
         })
-        .catch(err => { res.send(err) })
+        .catch(err => { res.end() })
 })
 
 router.get('/cities', (req, res) => {

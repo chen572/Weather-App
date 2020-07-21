@@ -28,9 +28,7 @@
 
     <script id="city-card-template" type="text/x-handlebars-template">
         {{#each city}}
-        <div class="city-card" 
-            data-id="{{_id}}"
-        >
+        <div class="city-card" data-id="{{_id}}">
             {{#if saved}}
                 <i class="fas fa-minus fa-2x remove"></i>
             {{else}}
@@ -46,6 +44,17 @@
             </div>
         </div>
         {{/each}}
+    </script>
+
+    <script id="top-city-template" type="text/x-handlebars-template">
+        <div class="city-card top-city">
+            <div class="city-name">
+                <h2>{{name}}</h2>
+                <span>{{condition}}</span>
+                <h2 class="temp">{{temperature}}<span class="C">&#8451;</span></h2>
+            </div>
+                <img src="http://openweathermap.org/img/wn/{{conditionPic}}@2x.png">
+        </div>
     </script>
 
     <script src="handlebars/dist/handlebars.js"></script>
