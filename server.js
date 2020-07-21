@@ -6,7 +6,7 @@ const cors = require('cors')
 require('dotenv').config()
 
 const app = express()
-mongoose.connect(process.env.MONGO_URI, { useFindAndModify: false} || 'mongodb://localhost/WeatherAppDB', { useFindAndModify: false })
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost/WeatherAppDB', { useFindAndModify: false })
 const router = require('./server/routes/Router')
 
 app.use(express.static(path.join(__dirname, 'dist')))
