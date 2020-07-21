@@ -15,8 +15,17 @@ class Model {
         this.cityData = await $.get('/cities')
     }
 
-    async getCityData(cityName) {
-        if (this.findInCityDataArr(cityName)) {
+    getCurrentLocation() {
+        return new Promise(async (resolve, reject ) => {
+            navigator.geolocation.getCurrentPosition(resolve)
+        })
+    }
+
+    async getCityData(cityName, coords) {
+        if (cityName === 'currentLocation') {
+            return $.get(`/city/${cityName}?lat=${coords.lat}&long=${coords.long}`)
+        }
+        else if (this.findInCityDataArr(cityName)) {
             return
         }
         this.cityData.push(await $.get(`/city/${cityName}`))

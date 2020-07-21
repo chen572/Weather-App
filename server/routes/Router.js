@@ -8,6 +8,29 @@ const baseURL = 'https://api.openweathermap.org/data/2.5/weather'
 
 router.get('/city/:cityName', (req, res) => {
     const { cityName } = req.params
+    const { lat, long } = req.query
+    if (lat && long) {
+        rq({
+            uri: baseURL,
+            qs: {
+                lat,
+                lon: long,
+                appid: API_KEY,
+                units: 'metric'
+            },
+            json: true
+        })
+            .then(data => {
+                res.send({
+                    name: data.name,
+                    temperature: Math.floor(data.main.temp),
+                    condition: data.weather[0].main,
+                    conditionPic: data.weather[0].icon,
+                    saved: false
+                })
+            })
+            .catch(err => { res.end() })
+    }
     rq({
         uri: baseURL,
         qs: {

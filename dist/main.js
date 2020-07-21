@@ -4,15 +4,18 @@ const renderer = new Renderer()
 
 const loadPage = () => {
     model
-    .getDataFromDB()
-    .then(() => {
-        darkMode()
-        renderer.render({ city: model.cityData }, 'bottom')
-        if(model.cityData.length) {
-            renderer.render(model.cityData[0], 'top')
-        }
+        .getDataFromDB()
+        .then(async () => {
+            darkMode()
+            renderer.render({ city: model.cityData }, 'bottom')
+            let location = await model.getCurrentLocation()
+            location = {
+                lat: location.coords.latitude,
+                long: location.coords.longitude
+            }
+            renderer.render(await model.getCityData('currentLocation', location), 'top')
         })
-    }
+}
 
 loadPage()
 
@@ -45,7 +48,7 @@ $('.bottom-container').on('click', '.remove, .add', async event => {
         await model.removeCity(city)
         renderer.render({ city: model.cityData }, 'bottom')
     }
-    
+
 })
 
 const darkMode = () => {
@@ -72,7 +75,7 @@ $('#slider').change(() => {
     darkMode()
 })
 
-$('.bottom-container').on('click', '#refresh' ,async event => {
+$('.bottom-container').on('click', '#refresh', async event => {
     await model.updateCity($(event.currentTarget).closest('.icons').siblings('#city-name').find('h2').text())
     renderer.render({ city: model.cityData }, 'bottom')
 })
