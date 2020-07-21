@@ -16,7 +16,7 @@ class Model {
     }
 
     getCurrentLocation() {
-        return new Promise(async (resolve, reject ) => {
+        return new Promise((resolve, reject) => {
             navigator.geolocation.getCurrentPosition(resolve)
         })
     }
@@ -54,5 +54,14 @@ class Model {
             url: `/city/${cityName}`
         })
         this.cityData.splice(this.findIndex(cityName), 1, updatedCity)
+    }
+
+    updateAllCitiesOnLoad() {
+        if (this.cityData.length) {
+            return $.ajax({
+                method: 'PUT',
+                url: '/cities/update',
+            })
+        }
     }
 }

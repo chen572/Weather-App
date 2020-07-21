@@ -2,7 +2,10 @@ let isDark = JSON.parse(localStorage.isDark || 'false')
 const model = new Model()
 const renderer = new Renderer()
 
-const loadPage = () => {
+$('#slider').val('off')
+
+const loadPage = async() => {
+    await model.updateAllCitiesOnLoad()
     model
         .getDataFromDB()
         .then(async () => {
@@ -60,6 +63,7 @@ const darkMode = () => {
             "--filter-color": "linear-gradient(90deg, hsla(152, 100%, 50%, 0.5) 0%, hsla(186, 100%, 69%, 0.5) 100%)"
         })
     } else {
+        $('#slider').attr('checked', 'checked')
         $(':root').css({
             "--primery-color": "#14213D",
             "--secondary-color": "#000000",

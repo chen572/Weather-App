@@ -105,4 +105,32 @@ router.put('/city/:cityName', async (req, res) => {
         .exec((e, d) => { res.send(d) })
 })
 
+router.put('/cities/update', async (req, res) => {
+    const cities = await City.find({})
+    Promise.all(
+        cities.map(c => {
+            return rq({
+                uri: baseURL,
+                qs: {
+                    q: c.name,
+                    appid: API_KEY,
+                    units: 'metric'
+                },
+                json: true
+            })
+        })
+    ).then(updatedCities => {
+        updatedCities = updatedCities.map(c => ({
+            name: c.name,
+            temperature: Math.floor(c.main.temp),
+            condition: c.weather[0].main,
+            conditionPic: c.weather[0].icon,
+            saved: true
+        }))
+        Promise
+            .all(updatedCities.map(c => City.findOneAndUpdate({ name: c.name }, c)))
+            .then(() => { res.end() })
+    })
+})
+
 module.exports = router
