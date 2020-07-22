@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+        integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="main-container">
+        <div id="top-container">
+            <div id="ld" class="switch">
+                <label>
+                    <i id="light" class="material-icons">wb_sunny</i>
+                    <input id="slider" type="checkbox">
+                    <span class="lever"></span>
+                    <i id="dark" class="fas fa-moon fa-lg"></i>
+                </label>
+            </div>
+            <div class="top-container-filter"></div>
+            <img class="top-container-img" src="./top.png">
+        </div>
+        <div class="search-container">
+            <input id="city-search" type="text">
+            <label class="search-label" for="city-search">City</label>
+            <i class="fas fa-search fa-2x fa-flip-horizontal search-btn"></i>
+        </div>
+        <div class="bottom-container"></div>
+    </div>
+
+    <script id="city-card-template" type="text/x-handlebars-template">
+        {{#each city}}
+        <div class="city-card" data-id="{{_id}}">
+            <div class="icons">
+            {{#if saved}}
+                <i id="refresh" class="small material-icons">cached</i>
+                <i class="fas fa-minus fa-2x remove"></i>
+            {{else}}
+                <i class="fas fa-plus fa-2x add"></i>
+            {{/if}}
+            </div>
+            <div id="city-name">
+                <h2>{{name}}</h2>
+                <span>{{condition}}</span>
+            </div>
+            <div class="temp-n-icn">
+                <h2 id="temp">{{temperature}}<span class="C">&#8451;</span></h2>
+                <img src="http://openweathermap.org/img/wn/{{conditionPic}}@2x.png">
+            </div>
+        </div>
+        {{/each}}
+    </script>
+
+    <script id="top-city-template" type="text/x-handlebars-template">
+        <div class="city-card top-city">
+            <div id="city-name">
+                <h2>{{name}}</h2>
+                <span>{{condition}}</span>
+                <h2 id="temp">{{temperature}}<span class="C">&#8451;</span></h2>
+            </div>
+                <img src="http://openweathermap.org/img/wn/{{conditionPic}}@2x.png">
+        </div>
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="handlebars/dist/handlebars.js"></script>
+    <script src="jquery/dist/jquery.js"></script>
+    <script src="./Classes/Renderer.js"></script>
+    <script src="./Classes/Model.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
