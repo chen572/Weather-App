@@ -3,6 +3,7 @@ const router = express.Router()
 const City = require('../models/City')
 const rq = require('request-promise')
 
+const { refactorCityObj, WeatherApiRQ } = require('../helpers/functions')
 const { API_KEY } = process.env
 const baseURL = 'https://api.openweathermap.org/data/2.5/weather'
 
