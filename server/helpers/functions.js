@@ -15,25 +15,20 @@ module.exports =
         }
     },
     weatherApiRQ: (cityName, lat, lon) => {
-        if (lat && lon) {
-            return rq({
-                uri: baseURL,
-                qs: {
+        return rq({
+            uri: baseURL,
+            qs: lat && lon ?
+                {
                     lat,
                     lon,
                     appid: API_KEY,
                     units: 'metric'
-                },
-                json: true
-            })
-        }
-        return rq({
-            uri: baseURL,
-            qs: {
-                q: cityName,
-                appid: API_KEY,
-                units: 'metric'
-            },
+                } : {
+                    q: cityName,
+                    appid: API_KEY,
+                    units: 'metric'
+                }
+            ,
             json: true
         })
     }
