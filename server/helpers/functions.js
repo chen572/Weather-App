@@ -14,7 +14,7 @@ module.exports =
             saved: option === 'new' ? false : true
         }
     },
-    WeatherApiRQ: (cityName, lat, lon) => {
+    weatherApiRQ: (cityName, lat, lon) => {
         if (lat && lon) {
             return rq({
                 uri: baseURL,

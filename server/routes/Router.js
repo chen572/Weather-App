@@ -1,56 +1,14 @@
 const express = require('express')
 const router = express.Router()
 const City = require('../models/City')
-const rq = require('request-promise')
 
-const { refactorCityObj, WeatherApiRQ } = require('../helpers/functions')
-const { API_KEY } = process.env
-const baseURL = 'https://api.openweathermap.org/data/2.5/weather'
+const { refactorCityObj, weatherApiRQ } = require('../helpers/functions')
 
-router.get('/city/:cityName', (req, res) => {
+router.get('/city/:cityName', async (req, res) => {
     const { cityName } = req.params
     const { lat, long } = req.query
-    if (lat && long) {
-        rq({
-            uri: baseURL,
-            qs: {
-                lat,
-                lon: long,
-                appid: API_KEY,
-                units: 'metric'
-            },
-            json: true
-        })
-            .then(data => {
-                res.send({
-                    name: data.name,
-                    temperature: Math.floor(data.main.temp),
-                    condition: data.weather[0].main,
-                    conditionPic: data.weather[0].icon,
-                    saved: false
-                })
-            })
-            .catch(err => { res.end() })
-    }
-    rq({
-        uri: baseURL,
-        qs: {
-            q: cityName,
-            appid: API_KEY,
-            units: 'metric'
-        },
-        json: true
-    })
-        .then(data => {
-            res.send({
-                name: data.name,
-                temperature: Math.floor(data.main.temp),
-                condition: data.weather[0].main,
-                conditionPic: data.weather[0].icon,
-                saved: false
-            })
-        })
-        .catch(err => { res.end() })
+    const data = await weatherApiRQ(cityName, lat, long)
+    res.send(refactorCityObj(data, 'new'))
 })
 
 router.get('/cities', (req, res) => {
@@ -83,24 +41,7 @@ router.delete('/city/:cityName', (req, res) => {
 
 router.put('/city/:cityName', async (req, res) => {
     const { cityName } = req.params
-    let update =
-        await rq({
-            uri: baseURL,
-            qs: {
-                q: cityName,
-                appid: API_KEY,
-                units: 'metric'
-            },
-            json: true
-        })
-
-    update = {
-        name: update.name,
-        temperature: Math.floor(update.main.temp),
-        condition: update.weather[0].main,
-        conditionPic: update.weather[0].icon,
-        saved: true
-    }
+    const update = refactorCityObj(await weatherApiRQ(cityName), 'old')
     City
         .findOneAndUpdate({ name: cityName }, update)
         .exec((e, d) => { res.send(d) })
@@ -108,30 +49,14 @@ router.put('/city/:cityName', async (req, res) => {
 
 router.put('/cities/update', async (req, res) => {
     const cities = await City.find({})
-    Promise.all(
-        cities.map(c => {
-            return rq({
-                uri: baseURL,
-                qs: {
-                    q: c.name,
-                    appid: API_KEY,
-                    units: 'metric'
-                },
-                json: true
-            })
+    Promise
+        .all(cities.map(c => weatherApiRQ(c.name)))
+        .then(updatedCities => {
+            updatedCities = updatedCities.map(c => refactorCityObj(c, 'old'))
+            Promise
+                .all(updatedCities.map(c => City.findOneAndUpdate({ name: c.name }, c)))
+                .then(() => { res.end() })
         })
-    ).then(updatedCities => {
-        updatedCities = updatedCities.map(c => ({
-            name: c.name,
-            temperature: Math.floor(c.main.temp),
-            condition: c.weather[0].main,
-            conditionPic: c.weather[0].icon,
-            saved: true
-        }))
-        Promise
-            .all(updatedCities.map(c => City.findOneAndUpdate({ name: c.name }, c)))
-            .then(() => { res.end() })
-    })
 })
 
 module.exports = router
